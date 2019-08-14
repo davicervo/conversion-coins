@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Resources\ApiResource;
 use Illuminate\Support\Facades\Cache;
 
 class ConverterCoin
@@ -9,7 +10,8 @@ class ConverterCoin
     protected $to;
     protected $from;
     protected $amount;
-
+    protected $converter;
+    protected $quotation;
 
     /**
      * Hydrate class
@@ -20,7 +22,7 @@ class ConverterCoin
     {
         foreach ($array as $key => $item) {
             if (array_key_exists($key, get_object_vars($this))) {
-                $this->$key = $item;
+                $this->$key = is_numeric($item) ? (int) $item : $item;
             }
         }
     }
@@ -76,5 +78,31 @@ class ConverterCoin
     public function getCache()
     {
         return Cache::get("{$this->to}-{$this->from}-{$this->amount}");
+    }
+
+
+    public function getConverter()
+    {
+        return number_format(($this->amount * $this->quotation), 2, '.', '');
+    }
+
+    /**
+     * Response
+     */
+    public function response()
+    {
+        return response()->json([
+            'data' => [
+                'to' => $this->to,
+                'from' => $this->from,
+                'amount' => $this->amount,
+                'quotation' => $this->quotation,
+                'converter' => $this->getConverter(),
+            ],
+            'meta' => [
+                'message' => 'success',
+                'errors' => []
+            ]
+        ], 200, ['Content-Type' => 'application/json']);
     }
 }

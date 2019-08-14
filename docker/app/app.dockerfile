@@ -16,8 +16,6 @@ RUN apt-get update \
     gettext-base \
   && rm -rf /var/lib/apt/lists/*
 
-RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/
-
 RUN useradd -u 1001 -g www-data --shell /bin/bash --create-home davicervo
 
 USER davicervo
@@ -35,8 +33,6 @@ RUN docker-php-ext-install mcrypt \
   && docker-php-ext-install mbstring \
   # Instalando a extensão ZIP
   && docker-php-ext-install zip \
-  # Instalando a extensão do PHP gmp
-  && docker-php-ext-install gmp \
   # Instalando a extensão do PHP pdo_mysql
   && docker-php-ext-install pdo_mysql \
   # Instalando a extensão do PHP pdo_pgsql
