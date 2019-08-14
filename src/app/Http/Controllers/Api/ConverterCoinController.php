@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+use App\ConverterCoin;
 use App\Http\Controllers\Controller;
 use App\Services\CryptoCompare;
 use App\Http\Requests\ApiRequest;
-use Illuminate\Support\Facades\Cache;
 
 class ConverterCoinController extends Controller
 {
     protected $lifeTimeCache = 60;
-    
+    protected $api;
+    protected $converter;
+
+    public function __construct()
+    {
+        $this->api = new CryptoCompare();
+        $this->converter = new ConverterCoin();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,19 +25,19 @@ class ConverterCoinController extends Controller
      */
     public function index(ApiRequest $request)
     {
-        $api = new CryptoCompare();
+        $this->converter->hydrate($request->all());
 
-        if (!Cache::has('request')) {
-            Cache::put('request', $api->params([
-                'fsym' => $request->get('from'),
-                'tsyms' => $request->get('to')
-            ])->amount($request->get('amount'))
+        if (!$this->converter->hasCache()) {
+            $response = $this->api->params([
+                'fsym' => $this->converter->get('from'),
+                'tsyms' => $this->converter->get('to')
+            ])->amount($this->converter->get('amount'))
                 ->request('price')
-                ->response(), $this->lifeTimeCache);
-        }
-        
-        $get = Cache::get('request');
+                ->response();
 
-        return $get;
+            $this->converter->createCache($response);
+        }
+       
+        return $this->converter->getCache();
     }
 }
