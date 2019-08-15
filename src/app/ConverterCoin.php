@@ -34,7 +34,11 @@ class ConverterCoin
      */
     public function get($properties)
     {
-        return $this->$properties;
+        if (array_key_exists($properties, get_object_vars($this))) {
+            return $this->$properties;
+        }
+        
+        return false;
     }
 
     /**
