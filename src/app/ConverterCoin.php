@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Http\Resources\ApiResource;
 use Illuminate\Support\Facades\Cache;
 
 class ConverterCoin
@@ -37,7 +36,7 @@ class ConverterCoin
         if (array_key_exists($properties, get_object_vars($this))) {
             return $this->$properties;
         }
-        
+
         return false;
     }
 
@@ -83,6 +82,20 @@ class ConverterCoin
     {
         return Cache::get("{$this->to}-{$this->from}-{$this->amount}");
     }
+
+    /**
+     * Get or Create Cache for request
+     *
+     * @param [varchar] $to
+     * @param [varchar] $from
+     * @param [integer] $amount
+     * @return void
+     */
+    public function removeCache()
+    {
+        return Cache::forget("{$this->to}-{$this->from}-{$this->amount}");
+    }
+
 
 
     public function getConverter()
