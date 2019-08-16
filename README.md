@@ -13,7 +13,7 @@
 
 ## Tests
 - Fora do container
-  - docker-compose exec app /bin/bash && ./vendor/bin/phpunit
+  - docker-compose exec app ./vendor/bin/phpunit
 - Dentro do container
   - ./vendor/bin/phpunit
 
