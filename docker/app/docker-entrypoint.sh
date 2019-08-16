@@ -1,6 +1,4 @@
 #!/bin/bash
-composer install
-
 if [ ! -e .env ] && [ -e .env.example ]
 then
   envsubst < .env.example > .env
