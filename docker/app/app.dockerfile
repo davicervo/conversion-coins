@@ -16,7 +16,7 @@ RUN apt-get update \
     gettext-base \
   && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -u 1001 -g www-data --shell /bin/bash --create-home davicervo
+RUN useradd -u ${USER_ID} -g www-data --shell /bin/bash --create-home davicervo
 
 USER davicervo
 
@@ -45,8 +45,6 @@ COPY ./docker/app/docker-entrypoint.sh /docker/docker-entrypoint.sh
 
 # Permissão de execução para os scripts
 RUN chmod +x /docker/docker-entrypoint.sh
-
-USER davicervo
 
 WORKDIR /var/www/html
 VOLUME /var/www/html

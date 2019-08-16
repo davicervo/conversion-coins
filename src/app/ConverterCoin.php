@@ -21,7 +21,7 @@ class ConverterCoin
     {
         foreach ($array as $key => $item) {
             if (array_key_exists($key, get_object_vars($this))) {
-                $this->$key = is_numeric($item) ? (int) $item : $item;
+                $this->$key = is_numeric($item) ? (double) $item : $item;
             }
         }
     }
@@ -41,12 +41,7 @@ class ConverterCoin
     }
 
     /**
-     * Get or Create Cache for request
-     *
-     * @param [varchar] $to
-     * @param [varchar] $from
-     * @param [integer] $amount
-     * @return void
+     * Get or Has Cache
      */
     public function hasCache()
     {
@@ -58,12 +53,7 @@ class ConverterCoin
     }
 
     /**
-     * Get or Create Cache for request
-     *
-     * @param [varchar] $to
-     * @param [varchar] $from
-     * @param [integer] $amount
-     * @return void
+     * Create Cache
      */
     public function createCache($response)
     {
@@ -71,12 +61,7 @@ class ConverterCoin
     }
 
     /**
-     * Get or Create Cache for request
-     *
-     * @param [varchar] $to
-     * @param [varchar] $from
-     * @param [integer] $amount
-     * @return void
+     * Get Cache 
      */
     public function getCache()
     {
@@ -84,12 +69,7 @@ class ConverterCoin
     }
 
     /**
-     * Get or Create Cache for request
-     *
-     * @param [varchar] $to
-     * @param [varchar] $from
-     * @param [integer] $amount
-     * @return void
+     * Delete Cache
      */
     public function removeCache()
     {
@@ -100,7 +80,7 @@ class ConverterCoin
 
     public function getConverter()
     {
-        return number_format(($this->amount * $this->quotation), 2, '.', '');
+        return $this->amount * $this->quotation;
     }
 
     /**

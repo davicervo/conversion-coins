@@ -1,7 +1,6 @@
 ## Projeto
 - Dentro da pasta do projeto execute os seguintes comandos:
   - docker-compose build && docker-compose up -d
-  - docker-compose exec app /bin/bash && composer install
 
 ## Aplicação
 
@@ -13,12 +12,12 @@
   - http://localhost:8081/api/converter?from=USD&to=BRL&amount=1
 
 ## Arquivos criados
-- app/Http/Controllers/Api/ConverterCoinController.php
-- app/Http/Request/ApiRequest.php
-- app/Http/Request/ApiRequest.php
-- app/Services/CryptoCompare.php
-- app/ConverterCoin.php
-- tests/Feature/ConverterCoinTest.php
+- src/app/Http/Controllers/Api/ConverterCoinController.php
+- src/app/Http/Request/ApiRequest.php
+- src/app/Http/Request/ApiRequest.php
+- src/app/Services/CryptoCompare.php
+- src/app/ConverterCoin.php
+- src/so tests/Feature/ConverterCoinTest.php
 
 
 ## Tecnologias utilizadas
