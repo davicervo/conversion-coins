@@ -46,17 +46,6 @@ class ConverterCoinTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function testWith1000Consult()
-    {
-        for ($i = 0; $i < 1000; $i++) {
-            $response = $this->get('/api/converter?from=BTC&to=BRL&amount=1');
-        }
-
-        $this->removeCache();
-
-        $response->assertStatus(200);
-    }
-
     public function removeCache()
     {
         $model = new ConverterCoin();
