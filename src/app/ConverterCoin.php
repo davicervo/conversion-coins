@@ -21,7 +21,7 @@ class ConverterCoin
     {
         foreach ($array as $key => $item) {
             if (array_key_exists($key, get_object_vars($this))) {
-                $this->$key = is_numeric($item) ? (double) $item : $item;
+                $this->$key = is_numeric($item) ? (float) $item : $item;
             }
         }
     }
@@ -80,7 +80,7 @@ class ConverterCoin
 
     public function getConverter()
     {
-        return $this->amount * $this->quotation;
+        return (double) number_format(($this->amount * $this->quotation), '2', '.', '');
     }
 
     /**

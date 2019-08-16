@@ -1,29 +1,27 @@
 version: "2"
 services:
-    app:
-        depends_on:
-            - redis
-        build:
-            context: ./
-            dockerfile: docker/app/app.dockerfile
-            args:
-                - USER_ID=${USER_ID}
-        working_dir: /var/www/html
-        volumes:
-            - ./src:/var/www/html
-    web:
-        depends_on:
-            - app
-        build:
-            context: ./
-            dockerfile: docker/web/web.dockerfile
-        working_dir: /var/www/html
-        volumes_from:
-            - app
-        ports:
-            - 8081:80
-    redis:
-        container_name: redis
-        image: redis
-        ports:
-            - "6379:6379"
+  app:
+    depends_on:
+      - redis
+    build:
+      context: ./
+      dockerfile: docker/app/app.dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+  web:
+    depends_on:
+      - app
+    build:
+      context: ./
+      dockerfile: docker/web/web.dockerfile
+    working_dir: /var/www/html
+    volumes_from:
+      - app
+    ports:
+      - 8081:80
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:6379"

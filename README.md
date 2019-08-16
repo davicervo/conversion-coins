@@ -11,6 +11,12 @@
 - Exemplo
   - http://localhost:8081/api/converter?from=USD&to=BRL&amount=1
 
+## Tests
+- Fora do container
+  - docker-compose exec app /bin/bash && ./vendor/bin/phpunit
+- Dentro do container
+  - ./vendor/bin/phpunit
+
 ## Arquivos criados
 - src/app/Http/Controllers/Api/ConverterCoinController.php
 - src/app/Http/Request/ApiRequest.php
